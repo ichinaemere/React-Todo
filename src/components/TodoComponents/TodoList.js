@@ -4,7 +4,7 @@
 const myList = [
 {
     task: 'Organize desk',
-    id: 06071996,
+    id: 0607,
     completed: false
 }, 
 
@@ -16,7 +16,7 @@ const myList = [
 
 {
     task: 'Meet with Dr. Hammond',
-    id: 01211999,
+    id: 0121,
     completed: false
 },
 
@@ -26,5 +26,5 @@ const myList = [
     completed: false
 }
 
-]
+];
 
