@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import data from './data';
-import Todo from './components/TodoComponents/Todo';
+// import ReactDOM from 'react-dom';
+import TodoForm from './components/TodoComponents/TodoForm';
 import TodoList from './components/TodoComponents/TodoList';
 
 const myList = [
@@ -32,21 +31,37 @@ const myList = [
 ];
 
 class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need 
-  //to work with your state
 
   constructor(){
     super();
-    this.setState = {
+    this.state = {
       myList
     };
   }
 
   // Class methods update state
 
-  toggleTodo = (clickedId) =>{
+  clearCompleted = () => {
+    // event.preventDefault();
+    this.setState({
+      myList: this.state.myList.filter(todo => todo.completed === false)
+    })
+  }
+
+  addTodo = itemTodo => {
+
+    const newTodo = {
+      task: itemTodo,
+      id: Date.now(),
+      completed: false
+    };
+
+    this.setState({
+      myList: [...this.state.myList, newTodo]
+    });
+  };
+
+  toggleTodo = clickedId =>{
     // no mutating the current state
     // for every array and every object - create a new one (... or array methods: MAP)
     const newTodoList = this.state.myList.map(todo => {
@@ -60,10 +75,11 @@ class App extends React.Component {
         ...todo,
         completed: !todo.completed
       };
-    } else {
-      return todo
-    }
-    });
+    } 
+
+    return todo;
+  
+  });
 
     // Update state
 
@@ -76,7 +92,8 @@ class App extends React.Component {
     return (
       <div>
         <h2>Chinaemere's To-Do List!</h2>
-        <TodoList myList={this.state.myList} toggleTodo={this.toggleTodo}/>
+        <TodoList myList={this.state.myList} toggleTodo={this.toggleTodo} clearCompleted={this.clearCompleted}/>
+        <TodoForm addTodo={this.addTodo}/>
       </div>
     );
   }
